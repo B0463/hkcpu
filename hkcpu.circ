@@ -472,19 +472,20 @@
     <comp lib="0" loc="(190,160)" name="Pin">
       <a name="label" val="HLT"/>
     </comp>
-    <comp lib="0" loc="(250,140)" name="Pin">
+    <comp lib="0" loc="(260,140)" name="Pin">
       <a name="facing" val="west"/>
       <a name="label" val="CLKO"/>
       <a name="output" val="true"/>
     </comp>
-    <comp lib="1" loc="(240,140)" name="AND Gate">
+    <comp lib="1" loc="(250,140)" name="AND Gate">
+      <a name="negate1" val="true"/>
       <a name="size" val="30"/>
     </comp>
-    <wire from="(190,130)" to="(210,130)"/>
+    <wire from="(190,130)" to="(220,130)"/>
     <wire from="(190,160)" to="(200,160)"/>
     <wire from="(200,150)" to="(200,160)"/>
     <wire from="(200,150)" to="(210,150)"/>
-    <wire from="(240,140)" to="(250,140)"/>
+    <wire from="(250,140)" to="(260,140)"/>
   </circuit>
   <circuit name="LogicCounter">
     <a name="appearance" val="evolution"/>
@@ -850,8 +851,8 @@
     <comp lib="1" loc="(320,150)" name="PLA">
       <a name="in_width" val="14"/>
       <a name="out_width" val="22"/>
-      <a name="table">xxxxxxxxxxx000 0000001000000001000000
-xxxxxxxxxxx001 0000000100000000010100
+      <a name="table">xxxxxxxxxxx000 0001000000000000001000
+xxxxxxxxxxx001 0010000000000001000010
 </a>
     </comp>
     <comp lib="4" loc="(270,110)" name="Counter">
