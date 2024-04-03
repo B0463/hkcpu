@@ -1,0 +1,10 @@
+# Logisim PLA program table
+
+#   I    F  C |RH A ACCCRRRRRRMMMOIAA
+#   N    L  T |SL O OOELABCABCAIOERRR
+#   S    G    |TT P     IIIOOOI   IIO
+#*******   *** **   *   ***   *** *** Base
+xxxxxxxxxxx000 0000001000000001000000
+xxxxxxxxxxx001 0000000100000000010100
+#*******   *** **   *   ***   *** ***
+
