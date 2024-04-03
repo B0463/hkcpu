@@ -391,4 +391,83 @@
     <wire from="(370,180)" to="(370,200)"/>
     <wire from="(370,180)" to="(380,180)"/>
   </circuit>
+  <circuit name="memory">
+    <a name="appearance" val="evolution"/>
+    <a name="circuit" val="memory"/>
+    <a name="circuitnamedboxfixedsize" val="true"/>
+    <a name="simulationFrequency" val="8.0"/>
+    <comp lib="0" loc="(330,160)" name="Pin">
+      <a name="label" val="CLK"/>
+    </comp>
+    <comp lib="0" loc="(330,190)" name="Pin">
+      <a name="label" val="RST"/>
+    </comp>
+    <comp lib="0" loc="(330,220)" name="Pin">
+      <a name="label" val="BUSI"/>
+      <a name="width" val="8"/>
+    </comp>
+    <comp lib="0" loc="(330,250)" name="Pin">
+      <a name="label" val="CMDI"/>
+      <a name="width" val="8"/>
+    </comp>
+    <comp lib="0" loc="(330,280)" name="Pin">
+      <a name="label" val="MAI"/>
+    </comp>
+    <comp lib="0" loc="(330,310)" name="Pin">
+      <a name="label" val="MI"/>
+    </comp>
+    <comp lib="0" loc="(330,340)" name="Pin">
+      <a name="label" val="MO"/>
+    </comp>
+    <comp lib="0" loc="(400,130)" name="Pin">
+      <a name="facing" val="west"/>
+      <a name="label" val="CMA"/>
+      <a name="output" val="true"/>
+      <a name="width" val="8"/>
+    </comp>
+    <comp lib="0" loc="(400,190)" name="Pin">
+      <a name="facing" val="west"/>
+      <a name="label" val="CMI"/>
+      <a name="output" val="true"/>
+    </comp>
+    <comp lib="0" loc="(400,220)" name="Pin">
+      <a name="facing" val="west"/>
+      <a name="label" val="CMDO"/>
+      <a name="output" val="true"/>
+      <a name="width" val="8"/>
+    </comp>
+    <comp lib="0" loc="(400,250)" name="Pin">
+      <a name="facing" val="west"/>
+      <a name="label" val="BUSO"/>
+      <a name="output" val="true"/>
+      <a name="width" val="8"/>
+    </comp>
+    <comp lib="1" loc="(390,250)" name="Controlled Buffer">
+      <a name="width" val="8"/>
+    </comp>
+    <comp lib="4" loc="(390,130)" name="Register">
+      <a name="appearance" val="classic"/>
+    </comp>
+    <wire from="(330,160)" to="(370,160)"/>
+    <wire from="(330,190)" to="(380,190)"/>
+    <wire from="(330,220)" to="(340,220)"/>
+    <wire from="(330,250)" to="(370,250)"/>
+    <wire from="(330,280)" to="(350,280)"/>
+    <wire from="(330,310)" to="(360,310)"/>
+    <wire from="(330,340)" to="(380,340)"/>
+    <wire from="(340,130)" to="(340,220)"/>
+    <wire from="(340,130)" to="(360,130)"/>
+    <wire from="(340,220)" to="(400,220)"/>
+    <wire from="(350,140)" to="(350,280)"/>
+    <wire from="(350,140)" to="(360,140)"/>
+    <wire from="(360,200)" to="(360,310)"/>
+    <wire from="(360,200)" to="(390,200)"/>
+    <wire from="(370,150)" to="(370,160)"/>
+    <wire from="(380,150)" to="(380,190)"/>
+    <wire from="(380,260)" to="(380,340)"/>
+    <wire from="(390,130)" to="(400,130)"/>
+    <wire from="(390,190)" to="(390,200)"/>
+    <wire from="(390,190)" to="(400,190)"/>
+    <wire from="(390,250)" to="(400,250)"/>
+  </circuit>
 </project>
