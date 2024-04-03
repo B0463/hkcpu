@@ -187,4 +187,85 @@
     <wire from="(360,250)" to="(360,350)"/>
     <wire from="(370,240)" to="(380,240)"/>
   </circuit>
+  <circuit name="LogicClock">
+    <a name="appearance" val="evolution"/>
+    <a name="circuit" val="LogicClock"/>
+    <a name="circuitnamedboxfixedsize" val="true"/>
+    <a name="simulationFrequency" val="8.0"/>
+    <comp lib="0" loc="(190,130)" name="Pin">
+      <a name="label" val="CLKI"/>
+    </comp>
+    <comp lib="0" loc="(190,160)" name="Pin">
+      <a name="label" val="HLT"/>
+    </comp>
+    <comp lib="0" loc="(250,140)" name="Pin">
+      <a name="facing" val="west"/>
+      <a name="label" val="CLKO"/>
+      <a name="output" val="true"/>
+    </comp>
+    <comp lib="1" loc="(240,140)" name="AND Gate">
+      <a name="size" val="30"/>
+    </comp>
+    <wire from="(190,130)" to="(210,130)"/>
+    <wire from="(190,160)" to="(200,160)"/>
+    <wire from="(200,150)" to="(200,160)"/>
+    <wire from="(200,150)" to="(210,150)"/>
+    <wire from="(240,140)" to="(250,140)"/>
+  </circuit>
+  <circuit name="LogicCounter">
+    <a name="appearance" val="evolution"/>
+    <a name="circuit" val="LogicCounter"/>
+    <a name="circuitnamedboxfixedsize" val="true"/>
+    <a name="simulationFrequency" val="8.0"/>
+    <comp lib="0" loc="(210,110)" name="Pin">
+      <a name="label" val="RST"/>
+    </comp>
+    <comp lib="0" loc="(210,140)" name="Pin">
+      <a name="label" val="BUSI"/>
+      <a name="width" val="8"/>
+    </comp>
+    <comp lib="0" loc="(210,170)" name="Pin">
+      <a name="label" val="CE"/>
+    </comp>
+    <comp lib="0" loc="(210,200)" name="Pin">
+      <a name="label" val="CO"/>
+    </comp>
+    <comp lib="0" loc="(210,230)" name="Pin">
+      <a name="label" val="CL"/>
+    </comp>
+    <comp lib="0" loc="(210,80)" name="Pin">
+      <a name="label" val="CLK"/>
+    </comp>
+    <comp lib="0" loc="(330,140)" name="Pin">
+      <a name="facing" val="west"/>
+      <a name="label" val="BUSO"/>
+      <a name="output" val="true"/>
+      <a name="width" val="8"/>
+    </comp>
+    <comp lib="1" loc="(320,140)" name="Controlled Buffer">
+      <a name="width" val="8"/>
+    </comp>
+    <comp lib="4" loc="(290,140)" name="Counter">
+      <a name="appearance" val="classic"/>
+    </comp>
+    <wire from="(210,110)" to="(240,110)"/>
+    <wire from="(210,140)" to="(260,140)"/>
+    <wire from="(210,170)" to="(220,170)"/>
+    <wire from="(210,200)" to="(310,200)"/>
+    <wire from="(210,230)" to="(230,230)"/>
+    <wire from="(210,80)" to="(250,80)"/>
+    <wire from="(220,150)" to="(220,170)"/>
+    <wire from="(220,150)" to="(260,150)"/>
+    <wire from="(230,130)" to="(230,230)"/>
+    <wire from="(230,130)" to="(260,130)"/>
+    <wire from="(240,110)" to="(240,180)"/>
+    <wire from="(240,180)" to="(280,180)"/>
+    <wire from="(250,170)" to="(270,170)"/>
+    <wire from="(250,80)" to="(250,170)"/>
+    <wire from="(270,160)" to="(270,170)"/>
+    <wire from="(280,160)" to="(280,180)"/>
+    <wire from="(290,140)" to="(300,140)"/>
+    <wire from="(310,150)" to="(310,200)"/>
+    <wire from="(320,140)" to="(330,140)"/>
+  </circuit>
 </project>
