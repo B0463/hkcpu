@@ -1,0 +1,27 @@
+FLG ADDR - INST     - 010           , 011
+xxx 0x00 - NOP      -               ,
+xxx 0x01 - ADD      - AOP-000 AO RCI,
+xxx 0x02 - SUB      - AOP-001 AO RCI,
+xxx 0x03 - MUL      - AOP-010 AO RCI,
+xxx 0x04 - DIV      - AOP-011 AO RCI,
+xxx 0x05 - LDA ADDR - CO MAI        , CE MO RAI
+xxx 0x06 - LDB ADDR - CO MAI        , CE MO RBI
+xxx 0x07 - LDC ADDR - CO MAI        , CE MO RCI
+xxx 0x08 - SVA ADDR - CO MAI        , CE MI RAO
+xxx 0x09 - SVB ADDR - CO MAI        , CE MI RBO
+xxx 0x0A - SVC ADDR - CO MAI        , CE MI RCO
+xxx 0x0B - MAB      - RAO RBI       ,
+xxx 0x0C - MAC      - RAO RCI       ,
+xxx 0x0D - MBA      - RBO RAI       ,
+xxx 0x0E - MBC      - RBO RCI       ,
+xxx 0x0F - MCA      - RCO RAI       ,
+xxx 0x10 - MCB      - RCO RBI       ,
+xxx 0x11 - JMP ADDR - CO MAI        , MO CL
+xxx 0x12 - CMP      - AOP-100       ,
+010 0x13 - JEQ ADDR - CO MAI        , MO CL
+x0x 0x14 - JNE ADDR - CO MAI        , MO CL
+100 0x15 - JBT ADDR - CO MAI        , MO CL
+001 0x16 - JLT ADDR - CO MAI        , MO CL
+xxx 0x17 - OUT ADDR - CO MAI        , CE MO OE
+xxx 0xfe - RST      - RST           ,
+xxx 0xff - HLT      - HLT           ,
