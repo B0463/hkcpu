@@ -10,12 +10,17 @@ using namespace std;
 
 u_int8_t ROM[256];
 
-int main() {
-    cout << "starting...\n";
-    ifstream arq("../../code.asm");
+int main(int argc, char *argv[]) {
+    if(argc <= 2) {
+        cout << "add a file do exec, exemple:\n./assembler ./code.asm ./memory.rom\n";
+        exit(1);
+    }
+    string srcfile = argv[1];
+    string binfile = argv[2];
+    ifstream arq(srcfile);
     if(!arq) {
-        cout << "can't open: ../../code.asm\n";
-        abort();
+        cout << "can't open: " << srcfile << "\n";
+        exit(1);
     }
     unordered_map<string, u_int8_t> noAddrOpcodeMap = {
         {"NOP", 0x00},
@@ -50,10 +55,11 @@ int main() {
     string line;
     string lastLine;
     bool text = 1;
+    int textsize = 0;
     for(int i = 0; getline(arq, line); ++i, lastLine = line) {
         if(i > 255) {
             cout << "your code passes 256 Bytes\n";
-            abort();
+            exit(1);
         }
         transform(line.begin(), line.end(), line.begin(),
                 [](unsigned char c) { return toupper(c); });
@@ -80,39 +86,40 @@ int main() {
                     i++;
                 } catch (const exception& e) {
                     cout << "TEXT: invalid address: \"" << line << "\" in line " << i+1 << "\n";
-                    abort();
+                    exit(1);
                 }
                 continue;
             }
             if(line == ".DATA") {
-                cout << "data section\n";
                 text = 0;
                 if(lastLine.substr(0, 3) != "HLT") {
                     cout << "HLT not found, auto add HLT\n";
                     ROM[i] = 0xFF;
                 }
+                textsize = i;
                 continue;
             }
             else {
                 cout << "TEXT: instruction not found: \"" << line << "\" in line " << i+1 << "\n";
-                abort();
+                exit(1);
             }
         }
+
         try {
             u_int8_t addr = stoi(line.substr(0, 2), nullptr, 16);
             u_int8_t value = stoi(line.substr(3, 2), nullptr, 16);
             ROM[addr] = value;
         } catch (const exception& e) {
             cout << "DATA: invalid value or address: \"" << line << "\" in line " << i+1 << "\n";
-            abort();
+            exit(1);
         }
     }
     arq.close();
-    cout << "writing...\n";
-    ofstream outFile("../../memory.rom", ios::out | ios::binary);
+    cout << "writing " << textsize << "B of TEXT code.\n";
+    ofstream outFile(binfile, ios::out | ios::binary);
     if (!outFile) {
-        cout << "can't open: ../../memory.rom for writing\n";
-        abort();
+        cout << "can't open: " << binfile << " for writing\n";
+        exit(1);
     }
     outFile.write(reinterpret_cast<char*>(ROM), sizeof(ROM));
     outFile.close();
