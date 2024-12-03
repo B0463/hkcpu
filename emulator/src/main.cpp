@@ -16,13 +16,14 @@ u_int8_t rc;
 u_int8_t ar;
 u_int8_t ir;
 u_int8_t ro;
+bool alt;
 
 void alu(u_int8_t *buso, bool clock, bool rst);
-void programCounter(u_int8_t *buso, u_int8_t busi, bool lastClock, bool clock, bool rst);
+void programCounter(u_int8_t *buso, u_int8_t busi, bool clock, bool rst);
 void regs(u_int8_t *buso, u_int8_t busi, bool clock, bool rst);
 void mem(u_int8_t *buso, u_int8_t busi, bool clock, bool rst);
 void rout(u_int8_t busi, bool clock, bool rst);
-void lu(u_int8_t *buso, u_int8_t busi, bool lastClock, bool clock, bool rst);
+void lu(u_int8_t *buso, u_int8_t busi, bool clock, bool rst);
 
 int main(int argc, char *argv[]) {
     if(argc <= 1) {
@@ -54,27 +55,42 @@ int main(int argc, char *argv[]) {
     u_int8_t clockCount;
     u_int8_t lastRo = ro;
     bool clock;
-    bool lastClock;
     bool rst;
     bool hlt;
     while(!hlt) {
+        std::cout << "States: "
+              << "addr: " << static_cast<int>(addr) << ", "
+              << "flg: " << static_cast<int>(flg) << ", "
+              << "pc: " << static_cast<int>(pc) << ", "
+              << "lc: " << static_cast<int>(lc) << ", "
+              << "ra: " << static_cast<int>(ra) << ", "
+              << "rb: " << static_cast<int>(rb) << ", "
+              << "rc: " << static_cast<int>(rc) << ", "
+              << "ar: " << static_cast<int>(ar) << ", "
+              << "ir: " << static_cast<int>(ir) << ", "
+              << "ro: " << static_cast<int>(ro) << ", "
+              << "alt: " << alt << ", "
+              << "clock: " << clock << ", "
+              << "hlt: " << hlt << ", "
+              << "rst: " << rst
+              << std::endl;
+
         if(rst) { clock=0;clockCount=0; }
         regs(&bus, bus, clock, rst);
         alu(&bus, clock, rst);
-        programCounter(&bus, bus, lastClock, clock, rst);
+        programCounter(&bus, bus, clock, rst);
         mem(&bus, bus, clock, rst);
         rout(bus, clock, rst);
-        lu(&bus, bus, lastClock, clock, rst);
-        lastClock = clock;
-        if(clockCount == 3) {
+        lu(&bus, bus, clock, rst);
+        if(clockCount == 2) {
             clockCount = 0;
             clock = !clock;
         } else {
             clockCount = clockCount+1;
         }
-        if(ro != lastRo) {
+        if(alt) {
             cout << "out: " << static_cast<int>(ro) << "\n";
-            lastRo = ro;
+            alt = 0;
         }
         rst = (controlBus & 0b1000000000000000000000) >> 21;
         hlt = (controlBus & 0b100000000000000000000) >> 20;
@@ -98,13 +114,13 @@ void alu(u_int8_t *buso, bool clock, bool rst) {
     if(rst) flg = 0;
 }
 
-void programCounter(u_int8_t *buso, u_int8_t busi, bool lastClock, bool clock, bool rst) {
+void programCounter(u_int8_t *buso, u_int8_t busi, bool clock, bool rst) {
     bool ce = (controlBus & 0b10000000000000000000) >> 19;
     bool co = (controlBus & 0b1000000000000000000) >> 18;
     bool ci = (controlBus & 0b100000000000000000) >> 17;
     if(co) *buso = pc;
     if(ci && clock) pc = busi;
-    if(ce && clock && !lastClock) pc = (pc + 1) % 256;
+    if(ce && clock) pc = (pc + 1) % 256;
     if(rst) pc = 0;
 }
 
@@ -132,15 +148,18 @@ void mem(u_int8_t *buso, u_int8_t busi, bool clock, bool rst) {
 
 void rout(u_int8_t busi, bool clock, bool rst) {
     bool oe = (controlBus & 0b1);
-    if(oe && clock) ro = busi;
+    if(oe && clock) {
+        ro = busi;
+        alt = 1;
+    } else { alt=0; }
     if(rst) ro = 0;
 }
 
-void lu(u_int8_t *buso, u_int8_t busi, bool lastClock, bool clock, bool rst) {
+void lu(u_int8_t *buso, u_int8_t busi, bool clock, bool rst) {
     bool ari = (controlBus & 0b100000) >> 5;
     bool aro = (controlBus & 0b10000) >> 4;
     bool iri = (controlBus & 0b1000000) >> 6;
-    if(!clock && lastClock) lc = (lc + 1) % 8;
+    if(!clock) lc = (lc + 1) % 8;
     if(aro) *buso = ar;
     if(ari && clock) ar = busi;
     if(iri && clock) ir = busi;
